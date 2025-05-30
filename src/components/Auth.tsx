@@ -42,14 +42,6 @@ export default function Auth({ onLogin }: AuthProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const checkPasskeySupport = () => {
-    if (!window.PublicKeyCredential) {
-      setError("Passkeys are not supported in this browser");
-      return false;
-    }
-    return true;
-  };
-
   const handleRegister = async () => {};
 
   const handleLogin = async () => {};
