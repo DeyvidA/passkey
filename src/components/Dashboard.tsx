@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import "./Dashboard.css"
+import { useState } from "react";
+import "./Dashboard.css";
 
 interface User {
-  id: string
-  username: string
-  displayName: string
-  createdAt: string
+  id: string;
+  username: string;
+  displayName: string;
+  createdAt: string;
 }
 
 interface DashboardProps {
-  user: User
-  onLogout: () => void
+  user: User;
+  onLogout: () => void;
 }
 
 export default function Dashboard({ user, onLogout }: DashboardProps) {
-  const [showDetails, setShowDetails] = useState(false)
+  const [showDetails, setShowDetails] = useState(false);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -25,21 +25,23 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    })
-  }
+    });
+  };
 
   const getStoredData = () => {
-    const users = JSON.parse(localStorage.getItem("users") || "[]")
-    const credentials = JSON.parse(localStorage.getItem("credentials") || "[]")
-    const userCredentials = credentials.filter((c: any) => c.userId === user.id)
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    const credentials = JSON.parse(localStorage.getItem("credentials") || "[]");
+    const userCredentials = credentials.filter(
+      (c: any) => c.userId === user.id
+    );
 
     return {
       totalUsers: users.length,
       userCredentials: userCredentials.length,
-    }
-  }
+    };
+  };
 
-  const { totalUsers, userCredentials } = getStoredData()
+  const { totalUsers, userCredentials } = getStoredData();
 
   return (
     <div className="dashboard-container">
@@ -122,11 +124,12 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
             <div className="card-content">
               <h3>Account Actions</h3>
               <div className="actions">
-                <button className="action-button" onClick={() => setShowDetails(!showDetails)}>
+                <button
+                  className="action-button"
+                  onClick={() => setShowDetails(!showDetails)}
+                >
                   {showDetails ? "Hide" : "Show"} Technical Details
                 </button>
-                <button className="action-button secondary">Manage Passkeys</button>
-                <button className="action-button secondary">Export Data</button>
               </div>
             </div>
           </div>
@@ -138,7 +141,11 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
             <div className="details-grid">
               <div className="detail-item">
                 <strong>Browser Support:</strong>
-                <span>{window.PublicKeyCredential ? "✅ Supported" : "❌ Not Supported"}</span>
+                <span>
+                  {window.PublicKeyCredential
+                    ? "✅ Supported"
+                    : "❌ Not Supported"}
+                </span>
               </div>
               <div className="detail-item">
                 <strong>Platform:</strong>
@@ -157,5 +164,5 @@ export default function Dashboard({ user, onLogout }: DashboardProps) {
         )}
       </main>
     </div>
-  )
+  );
 }
